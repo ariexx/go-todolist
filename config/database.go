@@ -11,11 +11,11 @@ import (
 var DbConn = InitDatabase()
 
 func InitDatabase() *gorm.DB {
-	dbHost := "localhost"
-	dbName := "belajar_golang_todolist"
-	dbUser := "root"
-	dbPass := ""
-	dbPort := "3306"
+	dbHost := DbHost
+	dbName := DbName
+	dbUser := DbUser
+	dbPass := DbPass
+	dbPort := DbPort
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
