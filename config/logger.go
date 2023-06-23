@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"os"
+	"time"
 )
 
 type LoggerInterface[T any] interface {
@@ -19,9 +20,10 @@ type Logger struct {
 
 func (log *Logger) SaveLog(level logrus.Level, msg any) {
 	logger := logrus.New()
+	formatTime := time.Now().Format("2006-01-02")
 
 	logger.SetFormatter(&logrus.JSONFormatter{})
-	file, _ := os.OpenFile("application.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, _ := os.OpenFile("logs/application-"+formatTime+".log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	logger.SetOutput(file)
 
 	logger.Log(level, msg)

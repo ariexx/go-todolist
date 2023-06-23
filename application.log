@@ -1,3 +1,0 @@
-{"level":"error","msg":"Error 1049 (42000): Unknown database 'belajar_golang_todolistt'","time":"2023-06-23T14:56:12+07:00"}
-{"level":"error","msg":"Error connecting to database","time":"2023-06-23T14:58:11+07:00"}
-{"level":"error","msg":"failed to listen: listen tcp4 :8888: bind: address already in use","time":"2023-06-23T14:59:06+07:00"}
