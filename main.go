@@ -5,6 +5,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"go-todolist/config"
 	"go-todolist/controller"
+	"go-todolist/middlewares"
 	"go-todolist/repository"
 	"go-todolist/services"
 )
@@ -14,6 +15,9 @@ func main() {
 	defer config.CloseConnection(db)
 
 	app := fiber.New()
+
+	// Middlewares
+	app.Use(middlewares.GeneralMiddleware())
 
 	// Routes
 	userRepository := repository.NewUserRepository(db)
