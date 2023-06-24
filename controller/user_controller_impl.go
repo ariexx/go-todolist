@@ -20,9 +20,16 @@ func (u *userControllerImpl) GetUserById(ctx *fiber.Ctx) error {
 	id, err := strconv.Atoi(ctx.Params("id"))
 	user, err := u.service.GetUserById(id)
 	if err != nil {
-		return ctx.Status(fiber.StatusNotFound).JSON(helper.ApiResponseFail("User not found", "error", err.Error()))
+		return ctx.Status(fiber.StatusNotFound).JSON(helper.ApiResponseFail(
+			"User not found",
+			"error",
+			err.Error()))
 	}
-	return ctx.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", user))
+	return ctx.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(
+		fiber.StatusOK,
+		"success",
+		"success",
+		user))
 }
 
 func (u *userControllerImpl) CreateUser(ctx *fiber.Ctx) error {
@@ -41,7 +48,9 @@ func (u *userControllerImpl) CreateUser(ctx *fiber.Ctx) error {
 			"error",
 			err.Error()))
 	}
-	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"message": "success",
-	})
+	return ctx.Status(fiber.StatusCreated).JSON(helper.ApiResponseSuccess(
+		fiber.StatusCreated,
+		"success",
+		"success",
+		[]string{}))
 }

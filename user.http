@@ -4,9 +4,9 @@ Content-Type: application/json
 Accept: application/json
 
     {
-        "username": "{{$random.alphabetic(5)}}",
-        "password": "{{$random.alphabetic(5)}}",
-        "email": "{{$random.email}}"
+        "username": "ariefgnatengx",
+        "password": "ariefgnatengx",
+        "email": "ariefgnatengx@gmail.com"
     }
 
 ### Register Failed
@@ -28,3 +28,23 @@ Accept: application/json
 ### Find By Id Failed
 GET {{host}}/api/v1/users/100
 Accept: application/json
+
+### Login Success
+POST {{host}}/api/v1/login
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "email": "admin@gmail.com",
+        "password": "admin"
+    }
+
+### Login Failed
+POST {{host}}/api/v1/login
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "email": "test@gmail.com",
+        "password": "test"
+    }

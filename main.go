@@ -25,7 +25,11 @@ func main() {
 	userService := services.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)
 
+	authService := services.NewAuthService(userRepository)
+	authController := controller.NewAuthController(authService)
+
 	router := app.Group("/api/v1")
+	router.Post("/login", authController.Login)
 	router.Post("/users", userController.CreateUser)
 	router.Get("/users/:id", userController.GetUserById)
 

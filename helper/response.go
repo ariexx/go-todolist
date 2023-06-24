@@ -21,7 +21,7 @@ type meta struct {
 	Status  string `json:"status"`
 }
 
-func ApiResponseSuccess(code int, message string, status string, data any) Response {
+func ApiResponseSuccess(code int, message string, status string, data any) *Response {
 	meta := meta{
 		Code:    code,
 		Message: message,
@@ -33,10 +33,10 @@ func ApiResponseSuccess(code int, message string, status string, data any) Respo
 		Data: data,
 	}
 
-	return response
+	return &response
 }
 
-func ApiResponseFail(message string, status string, data interface{}) ResponseFail {
+func ApiResponseFail(message string, status string, data interface{}) *ResponseFail {
 	response := ResponseFail{
 		Data: dataFail{
 			Status:   status,
@@ -45,5 +45,5 @@ func ApiResponseFail(message string, status string, data interface{}) ResponseFa
 		},
 	}
 
-	return response
+	return &response
 }
