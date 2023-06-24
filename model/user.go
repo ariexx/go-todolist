@@ -1,10 +1,10 @@
 package model
 
 type User struct {
-	Id        int    `json:"id"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	Email     string `json:"email"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	Id        int    `json:"id" gorm:"primaryKey;autoIncrement:true"`
+	Username  string `json:"username" gorm:"unique;not null"`
+	Password  string `json:"password" gorm:"not null"`
+	Email     string `json:"email" gorm:"unique;not null"`
+	CreatedAt string `json:"created_at" gorm:"autoCreateTime"`
+	UpdatedAt string `json:"updated_at" gorm:"autoUpdateTime"`
 }
