@@ -1,0 +1,30 @@
+### Register Success
+POST {{host}}/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "username": "{{$random.alphabetic()}}",
+        "password": "{{$random.alphabetic()}}",
+        "email": "{{$random.email}}"
+    }
+
+### Register Failed
+POST {{host}}/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "username": "abc",
+        "password": "aaa",
+        "email": "aaaa"
+    }
+
+### Find By Id Success
+GET {{host}}/api/v1/users/1
+Accept: application/json
+
+
+### Find By Id Failed
+GET {{host}}/api/v1/users/100
+Accept: application/json

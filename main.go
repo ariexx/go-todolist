@@ -4,6 +4,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus"
 	"go-todolist/config"
+	"go-todolist/controller"
+	"go-todolist/repository"
+	"go-todolist/services"
 )
 
 func main() {
@@ -12,9 +15,14 @@ func main() {
 
 	app := fiber.New()
 
-	app.Get("/hello", func(c *fiber.Ctx) error {
-		return c.Send([]byte("Anjayy"))
-	})
+	// Routes
+	userRepository := repository.NewUserRepository(db)
+	userService := services.NewUserService(userRepository)
+	userController := controller.NewUserController(userService)
+
+	router := app.Group("/api/v1")
+	router.Post("/users", userController.CreateUser)
+	router.Get("/users/:id", userController.GetUserById)
 
 	err := app.Listen(":" + config.AppPort)
 	if err != nil {

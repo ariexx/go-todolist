@@ -9,5 +9,5 @@ var (
 	DbPass  = helper.SetConfig("database.password", "")
 	DbHost  = helper.SetConfig("database.host", "")
 	DbPort  = helper.SetConfig("database.port", "")
-	DbName  = helper.SetConfig("database.name", "")
+	DbName  = helper.SetConfig("database.database", "")
 )
