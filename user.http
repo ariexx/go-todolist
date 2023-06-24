@@ -4,8 +4,8 @@ Content-Type: application/json
 Accept: application/json
 
     {
-        "username": "{{$random.alphabetic()}}",
-        "password": "{{$random.alphabetic()}}",
+        "username": "{{$random.alphabetic(5)}}",
+        "password": "{{$random.alphabetic(5)}}",
         "email": "{{$random.email}}"
     }
 

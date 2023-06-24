@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"go-todolist/helper"
 	"go-todolist/request"
 	"go-todolist/services"
 	"strconv"
@@ -19,29 +20,26 @@ func (u *userControllerImpl) GetUserById(ctx *fiber.Ctx) error {
 	id, err := strconv.Atoi(ctx.Params("id"))
 	user, err := u.service.GetUserById(id)
 	if err != nil {
-		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"message": err.Error(),
-		})
+		return ctx.Status(fiber.StatusNotFound).JSON(helper.ApiResponseFail("User not found", "error", err.Error()))
 	}
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "success",
-		"data":    user,
-	})
+	return ctx.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", user))
 }
 
 func (u *userControllerImpl) CreateUser(ctx *fiber.Ctx) error {
 	var input request.CreateUserRequest
 	err := ctx.BodyParser(&input)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": err.Error(),
-		})
+		return ctx.Status(fiber.StatusBadRequest).JSON(helper.ApiResponseFail(
+			"Bad request",
+			"error",
+			err.Error()))
 	}
 	_, err = u.service.CreateUser(input)
 	if err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err.Error(),
-		})
+		return ctx.Status(fiber.StatusInternalServerError).JSON(helper.ApiResponseFail(
+			"Failed to create user",
+			"error",
+			err.Error()))
 	}
 	return ctx.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "success",

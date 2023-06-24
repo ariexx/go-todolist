@@ -18,6 +18,7 @@ func main() {
 
 	// Middlewares
 	app.Use(middlewares.GeneralMiddleware())
+	app.Use(middlewares.LogMiddleware())
 
 	// Routes
 	userRepository := repository.NewUserRepository(db)
