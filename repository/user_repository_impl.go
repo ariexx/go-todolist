@@ -27,9 +27,13 @@ func (repository *userRepositoryImpl) GetUserById(id int) (model.User, error) {
 func (repository *userRepositoryImpl) Create(user model.User) (model.User, error) {
 
 	//check data given is exist or not
-	queryCheck := repository.db.Where("email = ?", user.Email).Where("username = ?", user.Username).First(&user)
-	if queryCheck.RowsAffected != 0 {
-		return user, queryCheck.AddError(errors.New("data already exist"))
+	if err := repository.db.Where("email = ?", user.Email).Where("username = ?", user.Username).
+		First(&user).Error; err != nil {
+		//handle custom error, if email or username already exist
+		//to use custom error in golang, use errors.New("your message")
+		//or you can use errors.Errorf("your message %s", variable)
+		//im recommend to use custom error
+		return user, errors.New("email or username already exist")
 	}
 
 	err := repository.db.Create(&user).Error
