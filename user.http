@@ -1,25 +1,3 @@
-### Register Success
-POST {{host}}/api/v1/users
-Content-Type: application/json
-Accept: application/json
-
-    {
-        "username": "ariefgnatengx",
-        "password": "ariefgnatengx",
-        "email": "ariefgnatengx@gmail.com"
-    }
-
-### Register Failed
-POST {{host}}/api/v1/users
-Content-Type: application/json
-Accept: application/json
-
-    {
-        "username": "abc",
-        "password": "aaa",
-        "email": "aaaa"
-    }
-
 ### Find By Id Success
 GET {{host}}/api/v1/users/1
 Accept: application/json

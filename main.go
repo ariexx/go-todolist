@@ -31,7 +31,6 @@ func main() {
 	router := app.Group("/api/v1")
 	router.Post("/login", authController.Login)
 	router.Post("/register", authController.Register)
-	router.Post("/users", userController.CreateUser)
 	router.Get("/users/:id", userController.GetUserById)
 
 	err := app.Listen(":" + config.AppPort)
