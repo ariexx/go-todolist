@@ -11,6 +11,10 @@ type authControllerImpl struct {
 	authService services.AuthService
 }
 
+func NewAuthController(authService services.AuthService) AuthController {
+	return &authControllerImpl{authService}
+}
+
 func (a *authControllerImpl) Login(c *fiber.Ctx) error {
 	var input request.LoginRequest
 	err := c.BodyParser(&input)
@@ -27,14 +31,28 @@ func (a *authControllerImpl) Login(c *fiber.Ctx) error {
 			"error",
 			err.Error()))
 	}
-	return c.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", token))
+	return c.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", map[string]string{
+		"token": token,
+		"type":  "Bearer",
+	}))
 }
 
 func (a *authControllerImpl) Register(c *fiber.Ctx) error {
-	//TODO implement me
-	panic("implement me")
-}
+	var input request.RegisterRequest
+	err := c.BodyParser(&input)
 
-func NewAuthController(authService services.AuthService) AuthController {
-	return &authControllerImpl{authService}
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(helper.ApiResponseFail(
+			"Bad request",
+			"error",
+			err.Error()))
+	}
+	_, err = a.authService.Register(input)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(helper.ApiResponseFail(
+			"Bad request",
+			"error",
+			err.Error()))
+	}
+	return c.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", []string{}))
 }

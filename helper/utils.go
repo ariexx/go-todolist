@@ -2,6 +2,7 @@ package helper
 
 import (
 	"github.com/spf13/viper"
+	"time"
 )
 
 func SetConfig(key string, defaultVal string) string {
@@ -16,4 +17,8 @@ func SetConfig(key string, defaultVal string) string {
 	}
 
 	return viper.GetString(key)
+}
+
+func Now() string {
+	return time.Now().Format("2006-01-02 15:04:05")
 }

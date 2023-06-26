@@ -6,5 +6,5 @@ import (
 
 type AuthService interface {
 	Login(request request.LoginRequest) (string, error)
-	Register(username string, email string, password string) (string, error)
+	Register(request request.RegisterRequest) (string, error)
 }

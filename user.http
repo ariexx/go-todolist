@@ -48,3 +48,25 @@ Accept: application/json
         "email": "test@gmail.com",
         "password": "test"
     }
+
+### Register Success
+POST {{host}}/api/v1/register
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "username": "ariefgantengsekali{{$randomInt}}",
+        "email": "anjay{{$randomInt}}@gmail.com",
+        "password": "sangatganteng{{$randomInt}}"
+    }
+
+### Register Failed
+POST {{host}}/api/v1/register
+Content-Type: application/json
+Accept: application/json
+
+    {
+        "username": "ariefgantengsekali{{$randomInt}}",
+        "email": "admin@gmail.com",
+        "password": "sangatganteng{{$randomInt}}"
+    }
