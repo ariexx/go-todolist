@@ -19,7 +19,7 @@ func (repository *userRepositoryImpl) GetUserById(id int) (model.User, error) {
 	err := repository.db.First(&user, id).Error
 	//check if user not found
 	if err != nil {
-		return user, err
+		return user, errors.New("user not found")
 	}
 	return user, nil
 }
@@ -47,7 +47,7 @@ func (repository *userRepositoryImpl) FindByEmail(email string) (model.User, err
 	var user model.User
 	err := repository.db.Where("email = ?", email).First(&user).Error
 	if err != nil {
-		return user, err
+		return user, errors.New("email not found")
 	}
 	return user, nil
 }
