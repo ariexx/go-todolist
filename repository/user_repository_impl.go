@@ -28,7 +28,7 @@ func (repository *userRepositoryImpl) Create(user model.User) (model.User, error
 
 	//check data given is exist or not
 	if err := repository.db.Where("email = ?", user.Email).Where("username = ?", user.Username).
-		First(&user).Error; err != nil {
+		First(&user).Error; err == nil {
 		//handle custom error, if email or username already exist
 		//to use custom error in golang, use errors.New("your message")
 		//or you can use errors.Errorf("your message %s", variable)
@@ -38,7 +38,7 @@ func (repository *userRepositoryImpl) Create(user model.User) (model.User, error
 
 	err := repository.db.Create(&user).Error
 	if err != nil {
-		return user, err
+		return user, errors.New("failed to create user")
 	}
 	return user, nil
 }

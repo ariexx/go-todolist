@@ -25,7 +25,8 @@ func main() {
 	userService := services.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)
 
-	authService := services.NewAuthService(userRepository)
+	jwtService := services.NewJwtService()
+	authService := services.NewAuthService(userRepository, jwtService)
 	authController := controller.NewAuthController(authService)
 
 	router := app.Group("/api/v1")

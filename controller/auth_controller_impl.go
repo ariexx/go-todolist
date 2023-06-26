@@ -47,12 +47,14 @@ func (a *authControllerImpl) Register(c *fiber.Ctx) error {
 			"error",
 			err.Error()))
 	}
-	_, err = a.authService.Register(input)
+	token, err := a.authService.Register(input)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(helper.ApiResponseFail(
 			"Bad request",
 			"error",
 			err.Error()))
 	}
-	return c.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", []string{}))
+	return c.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(fiber.StatusOK, "success", "success", map[string]string{
+		"token": token,
+	}))
 }

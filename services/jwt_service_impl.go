@@ -1,0 +1,27 @@
+package services
+
+import (
+	"github.com/golang-jwt/jwt/v5"
+	"go-todolist/config"
+)
+
+type jwtServiceImpl struct {
+}
+
+func NewJwtService() JwtService {
+	return &jwtServiceImpl{}
+}
+
+func (j *jwtServiceImpl) GenerateToken(userId uint) (string, error) {
+	var secretKey = []byte(config.JwtSecret)
+	claim := jwt.MapClaims{}
+	claim["user_id"] = userId
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
+	signedString, err := token.SignedString(secretKey)
+	if err != nil {
+		return "", err
+	}
+
+	return signedString, nil
+}

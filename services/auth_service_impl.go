@@ -11,10 +11,11 @@ import (
 
 type authServiceImpl struct {
 	repository repository.UserRepository
+	jwtService JwtService
 }
 
-func NewAuthService(repository repository.UserRepository) AuthService {
-	return &authServiceImpl{repository}
+func NewAuthService(repository repository.UserRepository, jwtService JwtService) AuthService {
+	return &authServiceImpl{repository, jwtService}
 }
 
 func (service *authServiceImpl) Login(request request.LoginRequest) (string, error) {
@@ -27,10 +28,14 @@ func (service *authServiceImpl) Login(request request.LoginRequest) (string, err
 		return "", err
 	}
 	if user.Password != request.Password {
-		return "", errors.New("invalid password")
+		return "", errors.New("email or password is wrong")
 	}
 
-	return "tokentokentoken", nil
+	token, err := service.jwtService.GenerateToken(uint(user.Id))
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
 
 func (service *authServiceImpl) Register(request request.RegisterRequest) (string, error) {
@@ -46,12 +51,16 @@ func (service *authServiceImpl) Register(request request.RegisterRequest) (strin
 	user.CreatedAt = helper.Now()
 	user.UpdatedAt = helper.Now()
 
-	//validate user
-
 	create, err := service.repository.Create(user)
 	if err != nil {
 		return "", err
 	}
 
-	return create.Username, nil
+	//generate jwt token
+	token, err := service.jwtService.GenerateToken(uint(create.Id))
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
 }

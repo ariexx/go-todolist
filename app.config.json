@@ -9,5 +9,6 @@
     "username": "root",
     "password": "",
     "database": "belajar_golang_todolist"
-  }
+  },
+  "jwt_secret": "ariefgantengsekali"
 }
