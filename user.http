@@ -1,14 +1,16 @@
 ### Find By Id Success
 GET {{host}}/api/v1/users/1
 Accept: application/json
+Authorization: Bearer {{token}}
 
 
 ### Find By Id Failed
 GET {{host}}/api/v1/users/100
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### Login Success
-POST {{host}}/api/v1/login
+POST {{host}}/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -18,7 +20,7 @@ Accept: application/json
     }
 
 ### Login Failed
-POST {{host}}/api/v1/login
+POST {{host}}/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -28,7 +30,7 @@ Accept: application/json
     }
 
 ### Register Success
-POST {{host}}/api/v1/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 Accept: application/json
 
@@ -39,7 +41,7 @@ Accept: application/json
     }
 
 ### Register Failed
-POST {{host}}/api/v1/register
+POST {{host}}/api/auth/register
 Content-Type: application/json
 Accept: application/json
 

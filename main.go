@@ -29,9 +29,11 @@ func main() {
 	authService := services.NewAuthService(userRepository, jwtService)
 	authController := controller.NewAuthController(authService)
 
-	router := app.Group("/api/v1")
-	router.Post("/login", authController.Login)
-	router.Post("/register", authController.Register)
+	authRouter := app.Group("/api/auth")
+	authRouter.Post("/login", authController.Login)
+	authRouter.Post("/register", authController.Register)
+
+	router := app.Group("/api/v1", middlewares.JwtMiddlewares())
 	router.Get("/users/:id", userController.GetUserById)
 
 	err := app.Listen(":" + config.AppPort)
