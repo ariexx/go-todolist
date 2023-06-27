@@ -37,6 +37,10 @@ func ApiResponseSuccess(code int, message string, status string, data any) *Resp
 }
 
 func ApiResponseFail(message string, status string, data interface{}) *ResponseFail {
+	//default message is empty slice
+	if data == nil {
+		data = []string{}
+	}
 	response := ResponseFail{
 		Data: dataFail{
 			Status:   status,
