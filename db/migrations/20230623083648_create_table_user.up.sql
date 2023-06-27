@@ -6,5 +6,3 @@ CREATE TABLE users (
                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                        updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO users (username, password, email) VALUES ('admin', 'admin', 'admin@gmail.com');

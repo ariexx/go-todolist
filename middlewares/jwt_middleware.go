@@ -16,7 +16,8 @@ func JwtMiddlewares() func(c *fiber.Ctx) error {
 		case "Bearer ": // empty token
 			return c.Status(fiber.StatusUnauthorized).JSON(helper.ApiResponseFail("Unauthorized", "Unauthorized", nil))
 		default:
-			//get token from header
+			//ini mengambil Bearer dari token (Bearer <token>)
+			// kenapa 7? karena Bearer ada 6 karakter dan ada 1 spasi
 			jwtToken = jwtToken[7:]
 
 			//validate token with jwt service
@@ -35,7 +36,6 @@ func JwtMiddlewares() func(c *fiber.Ctx) error {
 			//set user_id to context
 			c.Locals("user_id", userId)
 			return c.Next()
-
 		}
 	}
 }

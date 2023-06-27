@@ -15,8 +15,8 @@ Content-Type: application/json
 Accept: application/json
 
     {
-        "email": "admin@gmail.com",
-        "password": "admin"
+        "email": "anjayxx800@gmail.com",
+        "password": "sangatganteng924"
     }
 
 ### Login Failed
@@ -50,3 +50,8 @@ Accept: application/json
         "email": "admin@gmail.com",
         "password": "sangatganteng{{$randomInt}}"
     }
+
+### Find Todo By Id user
+GET {{host}}/api/v1/todos
+Accept: application/json
+Authorization: Bearer {{token}}

@@ -25,6 +25,10 @@ func main() {
 	userService := services.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)
 
+	todoRepository := repository.NewTodoRepository(db)
+	todoService := services.NewTodoService(todoRepository)
+	todoController := controller.NewTodoController(todoService)
+
 	jwtService := services.NewJwtService()
 	authService := services.NewAuthService(userRepository, jwtService)
 	authController := controller.NewAuthController(authService)
@@ -35,6 +39,7 @@ func main() {
 
 	router := app.Group("/api/v1", middlewares.JwtMiddlewares())
 	router.Get("/users/:id", userController.GetUserById)
+	router.Get("/todos", todoController.GetByUserId)
 
 	err := app.Listen(":" + config.AppPort)
 	if err != nil {
