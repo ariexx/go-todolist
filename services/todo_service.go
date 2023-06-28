@@ -8,7 +8,7 @@ import (
 
 type TodoService interface {
 	GetByUserId(userId uint) ([]model.Todo, error)
-	Create(ctx *fiber.Ctx, userId uint, todo *request.CreateTodoRequest) (string, error)
+	Create(userId uint, todo *request.CreateTodoRequest) (string, error)
 	Update(ctx *fiber.Ctx, userId uint, todoId int, todo *request.UpdateTodoRequest) (string, error)
 	Delete(ctx *fiber.Ctx, userId uint, todoId int) (string, error)
 }

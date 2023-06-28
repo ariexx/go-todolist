@@ -3,6 +3,7 @@ package middlewares
 import "github.com/gofiber/fiber/v2"
 
 func GeneralMiddleware() func(c *fiber.Ctx) error {
+	//set custom header
 	return func(c *fiber.Ctx) error {
 		c.Set("Accept", "application/json")
 		c.Set("Content-Type", "application/json")

@@ -37,9 +37,10 @@ func main() {
 	authRouter.Post("/login", authController.Login)
 	authRouter.Post("/register", authController.Register)
 
-	router := app.Group("/api/v1", middlewares.JwtMiddlewares())
+	router := app.Group("/api/v1", middlewares.JwtMiddlewares(), middlewares.SignatureMiddleware())
 	router.Get("/users/:id", userController.GetUserById)
 	router.Get("/todos", todoController.GetByUserId)
+	router.Post("/todos", todoController.Create)
 
 	err := app.Listen(":" + config.AppPort)
 	if err != nil {

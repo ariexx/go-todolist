@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gofiber/fiber/v2"
 	"go-todolist/helper"
+	"go-todolist/request"
 	"go-todolist/services"
 )
 
@@ -28,9 +29,27 @@ func (t *todoControllerImpl) GetByUserId(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(helper.ApiResponseSuccess(200, "success", "success", query))
 }
 
-func (t *todoControllerImpl) Create(userId uint, todo any) error {
-	//TODO implement me
-	panic("implement me")
+func (t *todoControllerImpl) Create(ctx *fiber.Ctx) error {
+	var input request.CreateTodoRequest
+	err := ctx.BodyParser(&input)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(helper.ApiResponseFail(
+			"Bad request",
+			"error",
+			err.Error()))
+	}
+
+	userId := ctx.Locals("user_id").(uint)
+	_, err = t.todoService.Create(userId, &input)
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(helper.ApiResponseFail(
+			"Failed to create todo",
+			"error",
+			err.Error()))
+	}
+
+	return ctx.Status(fiber.StatusCreated).JSON(helper.ApiResponseSuccess(200, "success", "success", nil))
+
 }
 
 func (t *todoControllerImpl) Update(userId uint, todoId int, todo any) error {

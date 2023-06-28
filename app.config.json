@@ -10,5 +10,6 @@
     "password": "",
     "database": "belajar_golang_todolist"
   },
-  "jwt_secret": "ariefgantengsekali"
+  "jwt_secret": "ariefgantengsekali",
+  "secret_key_signature": "ariefgantengsekali"
 }

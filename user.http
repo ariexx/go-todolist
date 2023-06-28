@@ -55,3 +55,16 @@ Accept: application/json
 GET {{host}}/api/v1/todos
 Accept: application/json
 Authorization: Bearer {{token}}
+
+
+### Create Todo
+POST {{host}}/api/v1/todos
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+X-Gic-Signature: {{signature}}
+
+{
+        "title": "Todo {{$randomInt}}",
+        "description": "Todo {{$randomInt}}"
+}
