@@ -1,1 +1,1 @@
-migrate -database "mysql://root@tcp(localhost:3306)/belajar_golang_todolist" -path db/migrations down
+migrate -database "mysql://root@tcp(localhost:3306)/belajar_golang_todolist" -path ../db/migrations down
